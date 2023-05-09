@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-16">
+    <title>Main Page</title>
+    <link rel="stylesheet" type="text/css" href="../index.css">
+    <script type="text/javascript" src="../main.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1 class="Titre">Client Management System</h1>
+    </header>
+    <main>
+      <details>
+        <summary>Add User</summary>
+        <form>
+          <label for="first">First</label>
+          <input name="first" id="first" type="text">
+          <label for="last">Last</label>
+          <input name="last" id="last" type="text">
+          <label for="email">Email</label>
+          <input name="email" id="email" type="email">
+          <label for="company">Company</label>
+          <input name="company" id="company" type="text">
+          <label for="country">Country</label>
+          <input name="country" id="country" type="text">
+  
+          <input value="Add" type="submit">
+          <p id="error"></p>
+        </form>
+      </details>
+      
+
+      <nav>
+        <ul class="Right_onglet">
+          <li><input id="searchbar" onkeyup="search()" type="text"
+            name="search" placeholder="Search">
+          </li>
+        </ul>
+      </nav>
+
+      <table>
+        <thead>
+          <tr>
+            <th>First</th>
+            <th>Last</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody id="users">
+
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
+
