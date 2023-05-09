@@ -29,15 +29,6 @@
           <p id="error"></p>
         </form>
       </details>
-      
-
-      <nav>
-        <ul class="Right_onglet">
-          <li><input id="searchbar" onkeyup="search()" type="text"
-            name="search" placeholder="Search">
-          </li>
-        </ul>
-      </nav>
 
       <table>
         <thead>
@@ -49,10 +40,19 @@
             <th>Country</th>
           </tr>
         </thead>
+
         <tbody id="users">
 
         </tbody>
       </table>
+      <div id = "wrapper">
+        <div id = wrapper-button> 
+            <img id = "first" src = "double-arrow.png" height = "70" onclick = "changePage('first')">
+            <img id = "prev" src = "arrow.png" height = "70" onclick = "changePage('prev')">
+            <h3 id = "page">1</h3>
+            <img id = "next" src = "arrow.png" height = "70" onclick = "changePage('next')">
+            <img id = "last" src = "double-arrow.png" height = "70" onclick = "changePage('last')">
+        </div>
     </main>
   </body>
 </html>

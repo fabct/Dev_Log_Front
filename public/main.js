@@ -1,6 +1,9 @@
 const USER_URL = "http://localhost:3000/users"
 const table = document.querySelector("#users");
 const form = document.querySelector("form");
+let page = 0;
+let userslen;
+let last_id =0;
 
 const user_checker = {
   first: /^[A-Za-z-]+$/,
@@ -21,33 +24,57 @@ let current_user;
  */
 const get_users = () => fetch(USER_URL)
     .then(res => res.json())
-    .then(json => refreshTable(json));
+    .then(json => {
+      userslen = json.length;
+      last_id = json[json.length-1].id;
+      refreshTable(json,page);
+    });
 
 /**
  * Rafraishir le tableau de la page web
  * @param {User[]} users le tableau de la base de donnée
  */
-const refreshTable = users => {
+const refreshTable = (user,startid) => {
   // On vide le tableau 
   table.innerHTML = "";
+  let split = 10;
   // Boucle pour recuperer tout les utilisateur
-  for(let user of users){
-    let row = document.createElement("tr");
-    row.id = "user-" + user.id;
-    row.innerHTML = `
-      <td>${user.first}</td>
-      <td>${user.last}</td>
-      <td>${user.email}</td>
-      <td>${user.company}</td>
-      <td>${user.country}</td>
-      <td><img onclick="start_edit(${user.id})" src="edit.svg"/></td>
-      <td><img onclick="delete_user(${user.id})" src="delete.svg"/></td>
-    `;
+  for (let i=startid*split;i<split*(startid+1); i++) {
+      
+      
+        let row = document.createElement("tr");
+        row.id = "user-" + user.id;
+        row.innerHTML = `
+        <td>${user[i].first}</td>
+        <td>${user[i].last}</td>
+        <td>${user[i].email}</td>
+        <td>${user[i].company}</td>
+        <td>${user[i].country}</td>
+        <td><img onclick="start_edit(${user[i].id})" src="edit.svg"/></td>
+        <td><img onclick="delete_user(${user[i].id})" src="delete.svg"/></td>
+        `;
 
-    // Ajout 
-    table.appendChild(row);
+        // Ajout 
+        table.appendChild(row);
   }
 };
+
+/**
+ * Pagination de nos données
+ */
+const changePage = (param) =>{
+  if(param == 'next' && page < parseInt(userslen/10))
+    page++;
+  if(param == 'prev' && page > 0)
+    page--;
+  if(param == 'first')
+    page = 0;
+  if(param == 'last')
+    page = parseInt(userslen/10);
+
+  document.getElementById("page").innerHTML = page+1;
+  get_users();
+}
 
 form.addEventListener("submit",event => {
   let rawdata = new FormData(form);
